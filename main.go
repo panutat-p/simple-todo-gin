@@ -22,7 +22,6 @@ func main() {
 		panic("Failed to load ENV")
 	}
 	dsn := os.Getenv("DATABASE_DSN")
-	fmt.Println("dsn:", dsn)
 	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
 
 	if err != nil {
@@ -35,8 +34,6 @@ func main() {
 		panic("Failed to migrate ElephantSQL")
 	}
 
-	db.Create(&User{Name: "Monkey"})
-
 	r := gin.Default()
 	r.GET("/ping", func(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{
@@ -44,7 +41,13 @@ func main() {
 		})
 	})
 
-	err = r.Run()
+	r.GET("/users", func(c *gin.Context) {
+		var u User
+		db.First(&u)
+		c.JSON(http.StatusOK, u)
+	})
+
+	err = r.Run() // block
 	if err != nil {
 		log.Println("server crashed")
 		return
