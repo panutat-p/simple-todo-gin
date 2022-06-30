@@ -1,5 +1,14 @@
 # simple-todo-gin
 
+https://github.com/pallat/fundamentals-demo
+
+https://github.com/pallat/todoapi
+
+https://github.com/pallat/todowasm
+
+https://github.com/pallat/todohexagonal
+
+
 ```shell
 go mod init github.com/panutat-p/simeple-todo-gin
 

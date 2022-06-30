@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
@@ -13,7 +14,7 @@ import (
 
 type User struct {
 	gorm.Model
-	Name string
+	Name string `json:"name"`
 }
 
 func main() {
@@ -27,7 +28,7 @@ func main() {
 	if err != nil {
 		panic("Failed to connect ElephantSQL")
 	}
-	fmt.Println("DB connection is established")
+	fmt.Println("Connected to ElephantSQL")
 
 	err = db.AutoMigrate(&User{})
 	if err != nil {
@@ -42,8 +43,11 @@ func main() {
 	})
 
 	r.GET("/users", func(c *gin.Context) {
-		var u User
-		db.First(&u)
+		var u User   // empty
+		db.First(&u) // embed into
+		s, _ := json.MarshalIndent(u, "", "\t")
+		fmt.Println(string(s))
+		//fmt.Printf("%+v\n", u)
 		c.JSON(http.StatusOK, u)
 	})
 
