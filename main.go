@@ -1,10 +1,10 @@
 package main
 
 import (
-	"encoding/json"
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
+	"github.com/panutat-p/simeple-todo-gin/users"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 	"log"
@@ -35,21 +35,18 @@ func main() {
 		panic("Failed to migrate ElephantSQL")
 	}
 
+	userHandler := users.UserHandler{
+		Db: db,
+	}
+
 	r := gin.Default()
-	r.GET("/ping", func(c *gin.Context) {
+	r.GET("/", func(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{
-			"message": "pong",
+			"message": "healthy",
 		})
 	})
 
-	r.GET("/users", func(c *gin.Context) {
-		var u User   // empty
-		db.First(&u) // embed into
-		s, _ := json.MarshalIndent(u, "", "\t")
-		fmt.Println(string(s))
-		//fmt.Printf("%+v\n", u)
-		c.JSON(http.StatusOK, u)
-	})
+	r.GET("/users", userHandler.GetFirstUser)
 
 	err = r.Run() // block
 	if err != nil {
