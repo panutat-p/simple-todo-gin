@@ -12,11 +12,6 @@ import (
 	"os"
 )
 
-type User struct {
-	gorm.Model
-	Name string `json:"name"`
-}
-
 func main() {
 	err := godotenv.Load()
 	if err != nil {
