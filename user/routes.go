@@ -1,4 +1,4 @@
-package users
+package user
 
 import (
 	"encoding/json"
@@ -8,13 +8,19 @@ import (
 	"net/http"
 )
 
-type UserHandler struct {
-	Db *gorm.DB
+type Handler struct {
+	db *gorm.DB
 }
 
-func (h *UserHandler) GetFirstUser(c *gin.Context) {
+func NewHandler(db *gorm.DB) *Handler {
+	return &Handler{
+		db: db,
+	}
+}
+
+func (h *Handler) GetFirstUser(c *gin.Context) {
 	var u User
-	h.Db.First(&u)
+	h.db.First(&u)
 	s, _ := json.MarshalIndent(u, "", "\t")
 	fmt.Println(string(s))
 	c.JSON(http.StatusOK, u)

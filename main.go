@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
-	"github.com/panutat-p/simeple-todo-gin/users"
+	"github.com/panutat-p/simeple-todo-gin/user"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 	"log"
@@ -35,9 +35,7 @@ func main() {
 		panic("Failed to migrate ElephantSQL")
 	}
 
-	userHandler := users.UserHandler{
-		Db: db,
-	}
+	userHandler := user.NewHandler(db)
 
 	r := gin.Default()
 	r.GET("/", func(c *gin.Context) {
@@ -46,7 +44,7 @@ func main() {
 		})
 	})
 
-	r.GET("/users", userHandler.GetFirstUser)
+	r.GET("/user", userHandler.GetFirstUser)
 
 	err = r.Run() // block
 	if err != nil {
