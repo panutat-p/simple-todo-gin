@@ -1,0 +1,13 @@
+GET http://localhost:3000
+###
+POST http://localhost:3000/auth/login
+Content-Type: application/json
+
+{
+  "username": "monkey",
+  "password": 1234
+}
+###
+GET http://localhost:3000/todos
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NTY2NDgxNjksImlhdCI6MTY1NjYwNDk2OX0.UcvDx5G0nFsNf109rzRtiDAY0HP3t2WKUTS5ONxBAWI
+###
