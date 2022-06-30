@@ -21,7 +21,7 @@ func NewHandler(db *gorm.DB) *Handler {
 func (h *Handler) GetAllTasks(c *gin.Context) {
 	var todos []Todo
 	h.db.Find(&todos)
-	s, _ := json.MarshalIndent(todos, "", "\t")
+	s, _ := json.MarshalIndent(todos, "", "  ")
 	fmt.Println(string(s))
 	c.JSON(http.StatusOK, todos)
 }

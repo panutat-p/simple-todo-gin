@@ -21,7 +21,7 @@ func NewHandler(db *gorm.DB) *Handler {
 func (h *Handler) GetFirstUser(c *gin.Context) {
 	var u User
 	h.db.First(&u)
-	s, _ := json.MarshalIndent(u, "", "\t")
+	s, _ := json.MarshalIndent(u, "", "  ")
 	fmt.Println(string(s))
 	c.JSON(http.StatusOK, u)
 }
