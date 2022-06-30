@@ -43,6 +43,7 @@ func main() {
 
 	r.GET("/user", userHandler.GetFirstUser)
 
+	r.GET("/todos", todoHandler.GetAllTasks)
 	r.POST("/todo/new", todoHandler.NewTask)
 
 	err = r.Run(fmt.Sprintf(":%s", os.Getenv("PORT"))) // block

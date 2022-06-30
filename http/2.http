@@ -1,9 +1,11 @@
 GET http://localhost:3000
 ###
+GET http://localhost:3000/todos
+###
 POST http://localhost:3000/todo/new
 Content-Type: application/json
 
 {
-  "title": "clean car"
+  "title": "go to grocery store"
 }
 ###
