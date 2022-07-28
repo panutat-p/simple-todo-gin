@@ -15,17 +15,18 @@ import (
 )
 
 func main() {
-	err := godotenv.Load()
+	err := godotenv.Load("local.env")
 	if err != nil {
-		panic("Failed to load ENV")
+		log.Println("Cannot find ENV file locally")
+		log.Println(err)
 	}
 	dsn := os.Getenv("DATABASE_DSN")
 	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
 
 	if err != nil {
+		log.Println(err)
 		panic("Failed to connect ElephantSQL")
 	}
-	fmt.Println("Connected to ElephantSQL")
 
 	err = db.AutoMigrate(&user.User{}, &todo.Todo{})
 	if err != nil {
@@ -56,6 +57,7 @@ func main() {
 	err = r.Run(fmt.Sprintf(":%s", os.Getenv("PORT"))) // block
 	if err != nil {
 		log.Println("🟥 Cannot start web server")
+		log.Println(err)
 		return
 	}
 }

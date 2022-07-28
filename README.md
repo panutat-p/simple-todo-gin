@@ -22,3 +22,15 @@ go get -u github.com/go-playground/validator/v10
 
 go get -u github.com/golang-jwt/jwt/v4
 ```
+
+```shell
+docker image build -t simple .
+
+docker container run -p 8080:8080 --name simple simple
+
+docker container run -p:8080:8080 --env-file ./local.env --name simple simple
+```
+
+non production use debug
+production use release
+GIN_MODE=debug

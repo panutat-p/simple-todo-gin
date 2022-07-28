@@ -1,6 +1,6 @@
-GET http://localhost:3000
+GET http://localhost:8080
 ###
-POST http://localhost:3000/auth/login
+POST http://localhost:8080/auth/login
 Content-Type: application/json
 
 {
@@ -8,6 +8,6 @@ Content-Type: application/json
   "password": 1234
 }
 ###
-GET http://localhost:3000/todos
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NTY2NDgxNjksImlhdCI6MTY1NjYwNDk2OX0.UcvDx5G0nFsNf109rzRtiDAY0HP3t2WKUTS5ONxBAWI
+GET http://localhost:8080/todos
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NTkwNTQ3NjcsImlhdCI6MTY1OTAxMTU2N30.YFur6r4qiaXj_8G23ZNu8cJZJLAKqF7czD_oFf5XYmM
 ###
